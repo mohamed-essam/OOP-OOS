@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get '/', to: 'application#root'
+
 #non_user routes
   post '/listCats', to: 'non_user#listCats'
   post '/listCatProds', to: 'non_user#listCatProds'
