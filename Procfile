@@ -1,1 +1,1 @@
-web: rails server -p 80
+web: rails server -p $PORT -e $RAILS_ENV
