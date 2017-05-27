@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
 #non_user routes
   post '/listCats', to: 'non_user#listCats'
+  get '/listCats', to: 'non_user#listCats'
   post '/listCatProds', to: 'non_user#listCatProds'
 
 #admin routes
