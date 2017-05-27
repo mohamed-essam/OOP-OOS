@@ -3,9 +3,12 @@ class NonUserController < ApplicationController
   # Lists categories' names
   def listCats
     ret = []
+    Rails.logger.info("A")
     Category.find_each do |c|
+      Rails.logger.info("B")
       ret << {id: c.id, name: c.name}
     end
+    Rails.logger.info("C")
     render json: ret
   end
 
