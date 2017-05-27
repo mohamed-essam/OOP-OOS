@@ -22,7 +22,7 @@ class UserController < ApplicationController
   end
 
   def listOrders()
-    if(!User.find(params[:user_id]).authenticate(params[:user_auth_key]))
+    if(!User.find(params[:user_id]).authenticate(params[:password]))
       render json: {status: false}
       return
     end
@@ -35,7 +35,7 @@ class UserController < ApplicationController
   end
 
   def placeOrder()
-    if(!User.find_by(id: params[:user_id]).authenticate(params[:user_auth_key]))
+    if(!User.find_by(id: params[:user_id]).authenticate(params[:password]))
       render json: {status: false}
       return
     end
