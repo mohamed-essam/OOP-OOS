@@ -29,7 +29,7 @@ class UserController < ApplicationController
     uid = params[:user_id]
     ret = {}
     Order.where(user_id: uid).find_each do |order|
-      ret[order.id] = {product_id: order.product_id, user_id: order.user_id, quantity: order.quantity, price_per_unit: order.price_per_unit}
+      ret[order.id] = {product_id: order.product_id, user_id: order.user_id, quantity: order.quantity, price_per_unit: order.price_per_unit, order_status: order.order_status}
     end
     render json: ret
   end

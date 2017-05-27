@@ -9,6 +9,14 @@ class AdminController < ApplicationController
     return admin.auth_key == auth_key
   end
 
+  def auth()
+    if(!authenticateAdmin(params[:admin_id], params[:admin_auth_key]))
+      render json: {status: false, reason: "Authentication Failed"}
+      return
+    end
+    render json: {status: true}
+  end
+
   # Add category to database
   # params => admin_id : user name of admin performing the operation
   #           admin_auth_key : Authentication key of that admin

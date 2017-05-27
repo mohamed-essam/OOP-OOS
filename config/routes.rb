@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   post '/listCatProds', to: 'non_user#listCatProds'
 
 #admin routes
+  post '/admin/auth', to: 'admin#auth'
+
   post '/admin/addCat', to: 'admin#addCat'
   post '/admin/editCat', to: 'admin#editCat'
   post '/admin/deleteCat', to: 'admin#deleteCat'
