@@ -117,9 +117,9 @@ class AdminController < ApplicationController
       render json: {status: false, reason: "Authentication Failed"}
       return
     end
-    ret = {}
+    ret = []
     Order.find_each do |order|
-      ret[order.id] = {product_id: order.product_id, user_id: order.user_id, quantity: order.quantity, price_per_unit: order.price_per_unit}
+      ret << {id: order.id, product_id: order.product_id, user_id: order.user_id, quantity: order.quantity, price_per_unit: order.price_per_unit}
     end
     render json: ret
   end
