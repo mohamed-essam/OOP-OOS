@@ -3,7 +3,7 @@ class DebugController < ApplicationController
   def listOrders()
     ret = []
     Order.find_each do |order|
-      ret << order
+      ret << {id: order.id, product_id: order.product_id, user_id: order.user_id, quantity: order.quantity, price_per_unit: order.price_per_unit}
     end
     render json: JSON.pretty_generate(ret)
   end
@@ -11,7 +11,7 @@ class DebugController < ApplicationController
   def listUsers()
     ret = []
     User.find_each do |user|
-      ret << user
+      ret << {id: user.id, first_name: user.first_name, last_name: user.last_name, user_name: user.user_name, email: user.email, phone: user.phone}
     end
     render json: JSON.pretty_generate(ret)
   end
@@ -19,7 +19,7 @@ class DebugController < ApplicationController
   def listAdmins()
     ret = []
     Admin.find_each do |admin|
-      ret << admin
+      ret << {id: admin.id, user_name: admin.user_name, auth_key: admin.auth_key}
     end
     render json: JSON.pretty_generate(ret)
   end
@@ -27,7 +27,7 @@ class DebugController < ApplicationController
   def listProducts()
     ret = []
     Product.find_each do |prod|
-      ret << prod
+      ret << {id: prod.id, name: prod.name, price: prod.price, category_id: o.category_id}
     end
     render json: JSON.pretty_generate(ret)
   end
@@ -35,7 +35,7 @@ class DebugController < ApplicationController
   def listCategories()
     ret = []
     Category.find_each do |cat|
-      ret << cat
+      ret << {id: cat.id, name: cat.name}
     end
     render json: JSON.pretty_generate(ret)
   end
