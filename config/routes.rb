@@ -1,6 +1,14 @@
 Rails.application.routes.draw do
   get '/', to: 'application#root'
 
+#debug routes
+
+  get '/debug/listCategories', to: 'debug#listCategories'
+  get '/debug/listOrders', to: 'debug#listOrders'
+  get '/debug/listUsers', to: 'debug#listUsers'
+  get '/debug/listProducts', to: 'debug#listProducts'
+  get '/debug/listAdmins', to: 'debug#listAdmins'
+
 #non_user routes
   post '/listCats', to: 'non_user#listCats'
   get '/listCats', to: 'non_user#listCats'

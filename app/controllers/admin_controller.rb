@@ -137,4 +137,13 @@ class AdminController < ApplicationController
     o = Order.find(params[:id])
     render json: {status: o.update(order_status: params[:status])}
   end
+
+  def addPictureToProduct()
+    if(!authenticateAdmin(params[:admin_id], params[:admin_auth_key]))
+      render json: {status: false, reason: "Authentication Failed"}
+      return
+    end
+    o = Order.find(params[:id])
+
+  end
 end
