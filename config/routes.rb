@@ -27,6 +27,9 @@ Rails.application.routes.draw do
   post '/admin/listOrders', to: 'admin#listOrders'
   post '/admin/changeOrderStatus', to: 'admin#orderStatusEdit'
 
+  post '/admin/addPicture', to: 'admin#addPictureToProduct'
+  post '/admin/removePicture', to: 'admin#deletePictureFromProduct'
+
 #user routes
   post '/user/register', to: 'user#create'
   post '/user/listOrders', to: 'user#listOrders'
