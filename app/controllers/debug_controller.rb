@@ -26,8 +26,8 @@ class DebugController < ApplicationController
 
   def listProducts()
     ret = []
-    Product.find_each do |prod|
-      ret << {id: prod.id, name: prod.name, price: prod.price, category_id: prod.category_id}
+    Product.find_each do |p|
+      ret << {id: p.id, category_id: p.category_id, name: p.name, price: p.price, picture_list: p.picture_list}
     end
     render json: JSON.pretty_generate(ret)
   end

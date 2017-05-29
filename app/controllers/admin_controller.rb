@@ -75,6 +75,7 @@ class AdminController < ApplicationController
     p.name = params[:name]
     p.price = params[:price].to_f
     p.category_id = params[:cat_id]
+    p.picture_list = '[]'
     render json: {status: p.save}
   end
 
@@ -143,7 +144,20 @@ class AdminController < ApplicationController
       render json: {status: false, reason: "Authentication Failed"}
       return
     end
-    o = Order.find(params[:id])
+    o = Product.find(params[:id])
+    pic_list = JSON.parse(o.picture_list)
+    pic_list << params[:link]
+    render json: {status: o.update(picture_list: pic_list.to_json)}
+  end
 
+  def deletePictureFromProduct()
+    if(!authenticateAdmin(params[:admin_id], params[:admin_auth_key]))
+      render json: {status: false, reason: "Authentication Failed"}
+      return
+    end
+    o = Product.find(params[:id])
+    pic_list = JSON.parse(o.picture_list)
+    pic_list.delete(params[:index])
+    render json: {status: o.update(picture_list: pic_list.to_json)}
   end
 end
