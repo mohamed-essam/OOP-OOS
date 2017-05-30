@@ -18,7 +18,7 @@ class UserController < ApplicationController
       render json: {status: true, uid: res.id}
       return
     end
-    render json: {status: false}
+    render json: {status: false, uid: -1}
   end
 
   def listOrders()
