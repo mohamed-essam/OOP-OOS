@@ -38,5 +38,5 @@ Rails.application.routes.draw do
   post '/user/listOrders', to: 'user#listOrders'
   post '/user/placeOrder', to: 'user#placeOrder'
   post '/user/auth', to: 'user#auth'
-  pott '/user/addReview', to: 'user#writeReview'
+  post '/user/addReview', to: 'user#writeReview'
 end
