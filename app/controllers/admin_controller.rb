@@ -26,8 +26,7 @@ class AdminController < ApplicationController
       render json: {status: false, reason: "Authentication Failed"}
       return
     end
-    c = Category.new
-    c.name = params[:name]
+    c = Category.new(name: params[:name])
     render json: {status: c.save}
   end
 
@@ -71,11 +70,7 @@ class AdminController < ApplicationController
       render json: {status: false, reason: "Authentication Failed"}
       return
     end
-    p = Product.new
-    p.name = params[:name]
-    p.price = params[:price].to_f
-    p.category_id = params[:cat_id]
-    p.picture_list = '[]'
+    p = Product.new(name: params[:name], price: params[:price].to_f, category_id: params[:cat_id], picture_list: '[]')
     render json: {status: p.save}
   end
 

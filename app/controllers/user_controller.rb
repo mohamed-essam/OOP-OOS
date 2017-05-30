@@ -1,13 +1,9 @@
 class UserController < ApplicationController
   def create()
-    u = User.new
-    u.user_name = params[:user_name]
-    u.first_name = params[:first_name]
-    u.last_name = params[:last_name]
-    u.email = params[:email]
-    u.phone = params[:phone]
-    u.password = params[:password]
-    u.password_confirmation = params[:password_confirmation]
+    u = User.new(user_name: params[:user_name],first_name: params[:first_name]
+    , last_name: params[:last_name], email: params[:email]
+    , phone: params[:phone], password: params[:password]
+    , password_confirmation: params[:password_confirmation])
     render json: {status: u.save}
   end
 
@@ -39,12 +35,7 @@ class UserController < ApplicationController
       render json: {status: false}
       return
     end
-    o = Order.new
-    o.product_id = params[:product_id]
-    o.user_id = params[:user_id]
-    o.price_per_unit = Product.find(params[:product_id]).price
-    o.quantity = params[:quantity]
-    o.order_status = '0'
+    o = Order.new(product_id: params[:product_id], user_id: params[:user_id], price_per_unit: Product.find(params[:product_id]).price, quantity: params[:quantity], order_status: '0')
     render json: {status: o.save}
   end
 
