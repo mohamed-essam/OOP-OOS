@@ -6,11 +6,11 @@ class AdminControllerTest < ActionController::TestCase
       Admin.new({user_name: 'Jake_M~', email: 'jake@my.com', auth_key: 'M~,AAS-+OIumKGdP4~U3qbS+rN[-09ft/{:1@G8acj3+^HS0|(Qbiis{3+=yaX#!'}).save
     end
     if(Order.find_by(id: 1) == nil)
-      User.new(first_name: "Ali", last_name: "Essam", user_name: "aeahmg", phone: "01203213124", email: "ali.essam@my.com", password: "abcdefghijklmnopqrstuvwxyz", password_confirmation: "abcdefghijklmnopqrstuvwxyz").save
+      puts(User.new(first_name: "Ali", last_name: "Essam", user_name: "aeahmg", phone: "01203213124", email: "ali.essam@my.com", password: "abcdefghijklmnopqrstuvwxyz", password_confirmation: "abcdefghijklmnopqrstuvwxyz").save)
       uid1 = User.last.id
-      User.new(first_name: "Ali", last_name: "Essam", user_name: "aeahmg", phone: "01203213124", email: "ali.essam@my.com", password: "abcdefghijklmnopqrstuvwxyz", password_confirmation: "abcdefghijklmnopqrstuvwxyz").save
+      puts(User.new(first_name: "Ali", last_name: "Essam", user_name: "aeahmg", phone: "01203213124", email: "ali.essam@my.com", password: "abcdefghijklmnopqrstuvwxyz", password_confirmation: "abcdefghijklmnopqrstuvwxyz").save)
       uid2 = User.last.id
-      Product.new(name: "Amazing product", price: '5.5').save
+      puts(Product.new(name: "Amazing product", price: '5.5').save)
       pid = Product.last.id
       Order.new(product_id: pid, user_id: uid1, price_per_unit: 3, quantity: 2, order_status: 0).save
       Order.new(product_id: pid, user_id: uid1, price_per_unit: 4, quantity: 1, order_status: 0).save

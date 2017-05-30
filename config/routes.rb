@@ -12,6 +12,9 @@ Rails.application.routes.draw do
 #non_user routes
   post '/listCats', to: 'non_user#listCats'
   post '/listCatProds', to: 'non_user#listCatProds'
+  post '/getUser', to: 'non_user#getUserPublicData'
+  post '/getUserRevs', to: 'non_user#getUserReviews'
+  post '/getProdRevs', to: 'non_user#getProductReviews'
 
 #admin routes
   post '/admin/auth', to: 'admin#auth'
@@ -35,4 +38,5 @@ Rails.application.routes.draw do
   post '/user/listOrders', to: 'user#listOrders'
   post '/user/placeOrder', to: 'user#placeOrder'
   post '/user/auth', to: 'user#auth'
+  pott '/user/addReview', to: 'user#writeReview'
 end

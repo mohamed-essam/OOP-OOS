@@ -47,4 +47,26 @@ class UserController < ApplicationController
     o.order_status = '0'
     render json: {status: o.save}
   end
+
+  def writeReview()
+    if(!User.find_by(id: params[:user_id]).authenticate(params[:password]))
+      render json: {status: false}
+      return
+    end
+    r = Review.new(user_id: params[:user_id], product_id: params[:product_id], title: params[:title], body: params[:body])
+    render json: {status: r.save}
+  end
+
+  def removeReview()
+    if(!User.find_by(id: params[:user_id]).authenticate(params[:password]))
+      render json: {status: false}
+      return
+    end
+    r = Review.find_by(id: params[:id])
+    if(r.user_id != params[:user_id])
+      render json: {status: false}
+      return
+    end
+    render json: {status: r.destroy}
+  end
 end

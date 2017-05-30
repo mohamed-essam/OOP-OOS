@@ -1,15 +1,10 @@
 class Order < ActiveRecord::Base
+  belongs_to :user
   validate :user_id_exists, :product_id_exists, :positive_quantity
 
   def positive_quantity()
     unless(quantity.to_i >= 1)
       errors.add(:quantity, "Positive quantity needed!")
-    end
-  end
-
-  def user_id_exists()
-    if(User.find_by(id: user_id) == nil)
-      errors.add(:user_id, "User doesn't exist!")
     end
   end
 
