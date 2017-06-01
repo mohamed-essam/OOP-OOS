@@ -20,15 +20,18 @@ class NonUserController < ApplicationController
     render json: ret
   end
 
+  # Returns all reviews a product has
   def getProductReviews
     r = Product.find_by(id: params[:product_id]).reviews
     ret = []
     r.find_each do |rev|
-      ret << {user_id: r.user_id, product_id: r.product_id, title: r.title, body: r.body}
+      ret << {user_id: r.user_id, product_id: r.product_id, title: r.title, body: r.body, rating: r.rating}
     end
     render json: ret
   end
 
+  # Returns all user public data given the id
+  # params => user_id : id of user to get their public data
   def getUserPublicData
     u = User.find_by(id: params[:user_id])
     ret = []
@@ -37,6 +40,8 @@ class NonUserController < ApplicationController
     end
   end
 
+  # Returns all user reviews given the id
+  # params => user_id : id of user to get their reviews
   def getUserReviews()
     r = User.find_by(id: params[:user_id]).reviews
     ret = []

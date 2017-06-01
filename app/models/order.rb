@@ -1,5 +1,5 @@
 class Order < ActiveRecord::Base
-  belongs_to :user
+  belongs_to :user, dependent: :destroy
   validate :user_id_exists, :product_id_exists, :positive_quantity
 
   def positive_quantity()

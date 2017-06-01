@@ -9,6 +9,7 @@ class AdminController < ApplicationController
     return admin.auth_key == auth_key
   end
 
+  # Endpoint for admin verification
   def auth()
     if(!authenticateAdmin(params[:admin_id], params[:admin_auth_key]))
       render json: {status: false, reason: "Authentication Failed"}
@@ -123,7 +124,7 @@ class AdminController < ApplicationController
   # Edit order status between 0: ordered, 1: delivering, 2: delivered
   # params => admin_id : user name of admin performing the operation
   #           admin_auth_key : Authentication key of that admin
-  #           id : databse ID of order to be edited
+  #           id : database ID of order to be edited
   #           status : New order status
   def orderStatusEdit()
     if(!authenticateAdmin(params[:admin_id], params[:admin_auth_key]))
@@ -134,6 +135,11 @@ class AdminController < ApplicationController
     render json: {status: o.update(order_status: params[:status])}
   end
 
+  # Adds a picture to a product
+  # params => admin_id : user name of admin performing the operation
+  #           admin_auth_key : Authentication key of that admin
+  #           id : database ID of product to be edited
+  #           link : URL to picture to be added
   def addPictureToProduct()
     if(!authenticateAdmin(params[:admin_id], params[:admin_auth_key]))
       render json: {status: false, reason: "Authentication Failed"}
@@ -145,6 +151,11 @@ class AdminController < ApplicationController
     render json: {status: o.update(picture_list: pic_list.to_json)}
   end
 
+  # Removes a picture from a product
+  # params => admin_id : user name of admin performing the operation
+  #           admin_auth_key : Authentication key of that admin
+  #           id : database ID of product to be edited
+  #           index : index of picture in list
   def deletePictureFromProduct()
     if(!authenticateAdmin(params[:admin_id], params[:admin_auth_key]))
       render json: {status: false, reason: "Authentication Failed"}

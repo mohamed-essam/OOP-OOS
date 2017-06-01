@@ -44,7 +44,7 @@ class UserController < ApplicationController
       render json: {status: false}
       return
     end
-    r = Review.new(user_id: params[:user_id], product_id: params[:product_id], title: params[:title], body: params[:body])
+    r = Review.new(user_id: params[:user_id], product_id: params[:product_id], title: params[:title], body: params[:body], rating: params[:rating])
     render json: {status: r.save}
   end
 
