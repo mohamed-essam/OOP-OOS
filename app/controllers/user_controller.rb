@@ -36,6 +36,40 @@ class UserController < ApplicationController
     render json: {status: o.save}
   end
 
+  def editOrder()
+    if(!User.find_by(id: params[:user_id]).authenticate(params[:password]))
+      render json: {status: false}
+      return
+    end
+    o = Order.find_by(id: params[:order_id])
+    if(o == nil)
+      render json: {status: false, reason: "Order not found!"}
+      return
+    end
+    if(o.order_status != 0)
+      render json: {status: false, reason: "Order has started processing"}
+      return
+    end
+    render json: {status: o.update(order_status: params[:order_status])}
+  end
+
+  def deleteOrder()
+    if(!User.find_by(id: params[:user_id]).authenticate(params[:password]))
+      render json: {status: false}
+      return
+    end
+    o = Order.find_by(id: params[:order_id])
+    if(o == nil)
+      render json: {status: false, reason: "Order not found!"}
+      return
+    end
+    if(o.order_status != 0)
+      render json: {status: false, reason: "Order has started processing"}
+      return
+    end
+    o.destroy
+  end
+
   def writeReview()
     if(!User.find_by(id: params[:user_id]).authenticate(params[:password]))
       render json: {status: false}
