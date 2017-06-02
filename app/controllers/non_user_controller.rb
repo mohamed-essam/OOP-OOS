@@ -21,6 +21,10 @@ class NonUserController < ApplicationController
     Product.where(category_id: cat).find_each do |p|
       ret << {id: p.id, category_id: p.category_id, name: p.name, price: p.price, picture_list: p.picture_list, desc: p.desc}
     end
+    if(ret.size == 0)
+      render json: {data: "", status: false, reason: "Category empty!"}
+      return
+    end
     render json: {data: ret.to_json, status: true, reason: ''}
   end
 
