@@ -15,7 +15,7 @@ class NonUserController < ApplicationController
     cat = params[:cat_id]
     ret = []
     Product.where(category_id: cat).find_each do |p|
-      ret << {id: p.id, category_id: p.category_id, name: p.name, price: p.price, picture_list: p.picture_list}
+      ret << {id: p.id, category_id: p.category_id, name: p.name, price: p.price, picture_list: p.picture_list, desc: p.desc}
     end
     render json: ret
   end
