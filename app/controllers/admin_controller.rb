@@ -12,10 +12,10 @@ class AdminController < ApplicationController
   # Endpoint for admin verification
   def auth()
     if(!authenticateAdmin(params[:admin_id], params[:admin_auth_key]))
-      render json: {status: false, reason: "['Authentication Failed']", data: ""}
+      render json: {status: false, reason: "Authentication Failed", data: ""}
       return
     end
-    render json: {status: true, reason: "[]", data: ""}
+    render json: {status: true, reason: "", data: ""}
   end
 
   # Add category to database
@@ -24,12 +24,16 @@ class AdminController < ApplicationController
   #           name : Name of new category
   def addCat()
     if(!authenticateAdmin(params[:admin_id], params[:admin_auth_key]))
-      render json: {status: false, reason: "['Authentication Failed']", data: ""}
+      render json: {status: false, reason: "Authentication Failed", data: ""}
       return
     end
     c = Category.new(name: params[:name])
     status = c.save
-    render json: {status: status, reason: c.errors.full_messages, data: ""}
+    error = ""
+    if(c.errors.full_messages.count > 0)
+      error = c.errors.full_messages[0]
+    end
+    render json: {status: status, reason: error, data: ""}
   end
 
   # Edit category name in database
@@ -39,12 +43,16 @@ class AdminController < ApplicationController
   #           name : New name of category
   def editCat()
     if(!authenticateAdmin(params[:admin_id], params[:admin_auth_key]))
-      render json: {status: false, reason: "['Authentication Failed']", data: ""}
+      render json: {status: false, reason: "Authentication Failed", data: ""}
       return
     end
     c = Category.find(params[:id])
     status = c.update(name: params[:name])
-    render json: {status: status, reason: c.errors.full_messages, data: ""}
+    error = ""
+    if(c.errors.full_messages.count > 0)
+      error = c.errors.full_messages[0]
+    end
+    render json: {status: status, reason: error, data: ""}
   end
 
   # Delete category from database
@@ -53,12 +61,16 @@ class AdminController < ApplicationController
   #           id : databse ID of category to be deleted
   def deleteCat()
     if(!authenticateAdmin(params[:admin_id], params[:admin_auth_key]))
-      render json: {status: false, reason: "['Authentication Failed']", data: ""}
+      render json: {status: false, reason: "Authentication Failed", data: ""}
       return
     end
     c = Category.find(params[:id])
     status = c.destroy
-    render json: {status: status, reason: c.errors.full_messages, data: ""}
+    error = ""
+    if(c.errors.full_messages.count > 0)
+      error = c.errors.full_messages[0]
+    end
+    render json: {status: status, reason: error, data: ""}
   end
 
   # Add product to database
@@ -69,12 +81,16 @@ class AdminController < ApplicationController
   #           cat_id : ID of category to be assigned to the product
   def addProd()
     if(!authenticateAdmin(params[:admin_id], params[:admin_auth_key]))
-      render json: {status: false, reason: "['Authentication Failed']", data: ""}
+      render json: {status: false, reason: "Authentication Failed", data: ""}
       return
     end
     p = Product.new(name: params[:name], price: params[:price].to_f, category_id: params[:cat_id], picture_list: '[]')
     status = p.save
-    render json: {status: status, reason: o.errors.full_messages, data: ""}
+    error = ""
+    if(p.errors.full_messages.count > 0)
+      error = c.errors.full_messages[0]
+    end
+    render json: {status: status, reason: error, data: ""}
   end
 
   # Edits product int the database
@@ -86,12 +102,16 @@ class AdminController < ApplicationController
   #           cat_id : ID of category to be assigned to the product
   def editProd()
     if(!authenticateAdmin(params[:admin_id], params[:admin_auth_key]))
-      render json: {status: false, reason: "['Authentication Failed']", data: ""}
+      render json: {status: false, reason: "Authentication Failed", data: ""}
       return
     end
     p = Product.find(params[:id])
     status = p.update(name: params[:name], price: params[:price].to_f, category_id: params[:cat_id])
-    render json: {status: status, reason: p.errors.full_messages, data: ""}
+    error = ""
+    if(p.errors.full_messages.count > 0)
+      error = c.errors.full_messages[0]
+    end
+    render json: {status: status, reason: error, data: ""}
   end
 
   # Deletes product from database
@@ -100,12 +120,16 @@ class AdminController < ApplicationController
   #           id : databse ID of product to be deleted
   def deleteProd()
     if(!authenticateAdmin(params[:admin_id], params[:admin_auth_key]))
-      render json: {status: false, reason: "['Authentication Failed']", data: ""}
+      render json: {status: false, reason: "Authentication Failed", data: ""}
       return
     end
     p = Product.find(params[:id])
     status = p.destroy
-    render json: {status: status, reason: p.errors.full_messages, data: ""}
+    error = ""
+    if(p.errors.full_messages.count > 0)
+      error = c.errors.full_messages[0]
+    end
+    render json: {status: status, reason: error, data: ""}
   end
 
   # Lists all orders made by any user
@@ -113,14 +137,14 @@ class AdminController < ApplicationController
   #           admin_auth_key : Authentication key of that admin
   def listOrders()
     if(!authenticateAdmin(params[:admin_id], params[:admin_auth_key]))
-      render json: {status: false, reason: "['Authentication Failed']", data: ""}
+      render json: {status: false, reason: "Authentication Failed", data: ""}
       return
     end
     ret = []
     Order.find_each do |order|
       ret << {id: order.id, product_id: order.product_id, user_id: order.user_id, quantity: order.quantity, price_per_unit: order.price_per_unit}
     end
-    render json: {data: ret.to_json, reason: '[]', status: true}
+    render json: {data: ret.to_json, reason: '', status: true}
   end
 
   # Edit order status between 0: ordered, 1: delivering, 2: delivered
@@ -130,12 +154,12 @@ class AdminController < ApplicationController
   #           status : New order status
   def orderStatusEdit()
     if(!authenticateAdmin(params[:admin_id], params[:admin_auth_key]))
-      render json: {status: false, reason: "['Authentication Failed']", data: ""}
+      render json: {status: false, reason: "Authentication Failed", data: ""}
       return
     end
     o = Order.find(params[:id])
     status = o.update(order_status: params[:status])
-    render json: {status: status, data: ""}
+    render json: {status: status, data: "", reason: ''}
   end
 
   # Adds a picture to a product
@@ -145,14 +169,18 @@ class AdminController < ApplicationController
   #           link : URL to picture to be added
   def addPictureToProduct()
     if(!authenticateAdmin(params[:admin_id], params[:admin_auth_key]))
-      render json: {status: false, reason: "['Authentication Failed']", data: ""}
+      render json: {status: false, reason: "Authentication Failed", data: ""}
       return
     end
     o = Product.find(params[:id])
     pic_list = JSON.parse(o.picture_list)
     pic_list << params[:link]
     status = o.update(picture_list: pic_list.to_json)
-    render json: {status: status, reason: o.errors.full_messages, data: ""}
+    error = ""
+    if(o.errors.full_messages.count > 0)
+      error = c.errors.full_messages[0]
+    end
+    render json: {status: status, reason: error, data: ""}
   end
 
   # Removes a picture from a product
@@ -173,6 +201,10 @@ class AdminController < ApplicationController
     end
     pic_list.delete(params[:index])
     status = o.update(picture_list: pic_list.to_json)
-    render json: {status: status, data: "", reason: o.errors.full_messages}
+    error = ""
+    if(o.errors.full_messages.count > 0)
+      error = c.errors.full_messages[0]
+    end
+    render json: {status: status, reason: error, data: ""}
   end
 end
