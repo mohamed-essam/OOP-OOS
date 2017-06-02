@@ -12,10 +12,10 @@ class AdminController < ApplicationController
   # Endpoint for admin verification
   def auth()
     if(!authenticateAdmin(params[:admin_id], params[:admin_auth_key]))
-      render json: {status: false, reason: "Authentication Failed"}
+      render json: {status: false, reason: "['Authentication Failed']"}
       return
     end
-    render json: {status: true}
+    render json: {status: true, reason: "[]"}
   end
 
   # Add category to database
@@ -24,11 +24,12 @@ class AdminController < ApplicationController
   #           name : Name of new category
   def addCat()
     if(!authenticateAdmin(params[:admin_id], params[:admin_auth_key]))
-      render json: {status: false, reason: "Authentication Failed"}
+      render json: {status: false, reason: "['Authentication Failed']"}
       return
     end
     c = Category.new(name: params[:name])
-    render json: {status: c.save}
+    status = c.save
+    render json: {status: status, reason: c.errors.full_messages}
   end
 
   # Edit category name in database
@@ -38,12 +39,12 @@ class AdminController < ApplicationController
   #           name : New name of category
   def editCat()
     if(!authenticateAdmin(params[:admin_id], params[:admin_auth_key]))
-      render json: {status: false, reason: "Authentication Failed"}
+      render json: {status: false, reason: "['Authentication Failed']"}
       return
     end
     c = Category.find(params[:id])
-    c.update(name: params[:name])
-    render json: {status: true}
+    status = c.update(name: params[:name])
+    render json: {status: status, reason: c.errors.full_messages}
   end
 
   # Delete category from database
@@ -52,12 +53,12 @@ class AdminController < ApplicationController
   #           id : databse ID of category to be deleted
   def deleteCat()
     if(!authenticateAdmin(params[:admin_id], params[:admin_auth_key]))
-      render json: {status: false, reason: "Authentication Failed"}
+      render json: {status: false, reason: "['Authentication Failed']"}
       return
     end
     c = Category.find(params[:id])
-    c.destroy
-    render json: {status: true}
+    status = c.destroy
+    render json: {status: status, reason: c.errors.full_messages}
   end
 
   # Add product to database
