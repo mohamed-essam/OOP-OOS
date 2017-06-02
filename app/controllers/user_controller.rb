@@ -1,9 +1,6 @@
 class UserController < ApplicationController
   def create()
-    u = User.new(user_name: params[:user_name],first_name: params[:first_name]
-    , last_name: params[:last_name], email: params[:email]
-    , phone: params[:phone], password: params[:password]
-    , password_confirmation: params[:password_confirmation])
+    u = User.new(user_name: params[:user_name],first_name: params[:first_name], last_name: params[:last_name], email: params[:email], phone: params[:phone], password: params[:password], password_confirmation: params[:password_confirmation])
     render json: {status: u.save}
   end
 
