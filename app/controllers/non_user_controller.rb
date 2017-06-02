@@ -14,13 +14,14 @@ class NonUserController < ApplicationController
   def listCatProds
     if(Category.find_by(id: params[:cat_id]) == nil)
       render json: {data: "", status: false, reason: "['Category not found!']"}
+      return
     end
     cat = params[:cat_id]
     ret = []
     Product.where(category_id: cat).find_each do |p|
       ret << {id: p.id, category_id: p.category_id, name: p.name, price: p.price, picture_list: p.picture_list, desc: p.desc}
     end
-    render json: {data: ret.to_json, status: true, reason: '[]'}
+    render json: {data: ret.to_json, status: true, reason: '["a"]'}
   end
 
   # Returns all reviews a product has
@@ -28,6 +29,7 @@ class NonUserController < ApplicationController
     r = Product.find_by(id: params[:product_id]).reviews
     if(r == nil)
       render json: {data: "", status: false, reason: "['Product not found!']"}
+      return
     end
     ret = []
     r.find_each do |rev|
@@ -42,6 +44,7 @@ class NonUserController < ApplicationController
     u = User.find_by(id: params[:user_id])
     if(u == nil)
       render json: {status: false, data: "", reason: "['User not found']"}
+      return
     end
     ret = []
     u.find_each do |user|
@@ -56,6 +59,7 @@ class NonUserController < ApplicationController
     r = User.find_by(id: params[:user_id]).reviews
     if(r == nil)
       render json: {status: false, data: "", reason: "['User not found']"}
+      return
     end
     ret = []
     r.find_each do |rev|
