@@ -190,13 +190,13 @@ class AdminController < ApplicationController
   #           index : index of picture in list
   def deletePictureFromProduct()
     if(!authenticateAdmin(params[:admin_id], params[:admin_auth_key]))
-      render json: {status: false, reason: "['Authentication Failed']", data: ""}
+      render json: {status: false, reason: "Authentication Failed", data: ""}
       return
     end
     o = Product.find(params[:id])
     pic_list = JSON.parse(o.picture_list)
     if(params[:index].to_i > pic_list.length)
-      render json: {status: false, reason: "['Index out of range']", data: ""}
+      render json: {status: false, reason: "Index out of range", data: ""}
       return
     end
     pic_list.delete(params[:index])

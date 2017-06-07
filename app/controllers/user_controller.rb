@@ -60,7 +60,7 @@ class UserController < ApplicationController
       render json: {status: false, reason: "Order has started processing", data: ""}
       return
     end
-    status = o.update(order_status: params[:quantity])
+    status = o.update(quantity: params[:quantity])
     error = ""
     if(o.errors.full_messages.count > 0)
       error = c.errors.full_messages[0]
