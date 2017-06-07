@@ -9,14 +9,14 @@ class UserController < ApplicationController
   def auth()
     u = User.find_by(user_name: params[:user_name])
     if(u == nil)
-      render json: {status: false, uid: -1, reason: "Wrong username", data: ""}
+      render json: {status: false,  reason: "Wrong username", data: "-1"}
     end
     res = u.authenticate(params[:password])
     if(res)
-      render json: {status: true, uid: res.id, reason: "", data: ""}
+      render json: {status: true, reason: "", data: res.id.to_s}
       return
     end
-    render json: {status: false, uid: -1, reason: "Wrong password", data: ""}
+    render json: {status: false, reason: "Wrong password", data: "-1"}
   end
 
   def listOrders()
