@@ -9,7 +9,7 @@ class UserController < ApplicationController
   def auth()
     u = User.find_by(user_name: params[:user_name])
     if(u == nil)
-      render json: {status: false,  reason: "Wrong username", data: "-1"}
+      return render json: {status: false,  reason: "Wrong username", data: "-1"}
     end
     res = u.authenticate(params[:password])
     if(res)
