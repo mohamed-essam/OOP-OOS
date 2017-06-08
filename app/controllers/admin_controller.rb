@@ -70,7 +70,7 @@ class AdminController < ApplicationController
     if(c.errors.full_messages.count > 0)
       error = c.errors.full_messages[0]
     end
-    render json: {status: status, reason: error, data: ""}
+    render json: {status: true, reason: error, data: ""}
   end
 
   # Add product to database
@@ -129,7 +129,7 @@ class AdminController < ApplicationController
     if(p.errors.full_messages.count > 0)
       error = c.errors.full_messages[0]
     end
-    render json: {status: status, reason: error, data: ""}
+    render json: {status: true, reason: error, data: ""}
   end
 
   # Lists all orders made by any user

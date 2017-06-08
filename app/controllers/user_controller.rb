@@ -91,7 +91,7 @@ class UserController < ApplicationController
     if(o.errors.full_messages.count > 0)
       error = o.errors.full_messages[0]
     end
-    render json: {status: status, reason: error, data: ""}
+    render json: {status: true, reason: error, data: ""}
   end
 
   def writeReview()
@@ -123,6 +123,6 @@ class UserController < ApplicationController
     if(r.errors.full_messages.count > 0)
       error = c.errors.full_messages[0]
     end
-    render json: {status: status, reason: error, data: ""}
+    render json: {status: true, reason: error, data: ""}
   end
 end
