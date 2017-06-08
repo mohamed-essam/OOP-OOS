@@ -89,7 +89,7 @@ class UserController < ApplicationController
     status = o.destroy
     error = ""
     if(o.errors.full_messages.count > 0)
-      error = c.errors.full_messages[0]
+      error = o.errors.full_messages[0]
     end
     render json: {status: status, reason: error, data: ""}
   end

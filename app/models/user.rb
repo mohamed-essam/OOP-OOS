@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
-  has_many :orders
-  has_many :reviews
+  has_many :orders, dependent: :destroy
+  has_many :reviews, dependent: :destroy
   validates :user_name, length: {minimum: 6, maximum: 32}, uniqueness: true
   validates :first_name, length: {minimum: 2, maximum: 32}
   validates :last_name, length: {minimum: 2, maximum: 32}

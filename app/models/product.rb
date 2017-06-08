@@ -1,6 +1,6 @@
 class Product < ActiveRecord::Base
-  belongs_to :category, dependent: :destroy
-  has_many :reviews
+  belongs_to :category
+  has_many :reviews, dependent: :destroy
   validates :name, presence: true
   validate :positive_price
 
