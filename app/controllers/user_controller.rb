@@ -78,7 +78,7 @@ class UserController < ApplicationController
       render json: {status: false, reason: "Order not found!", data: ""}
       return
     end
-    if(o.user_id != params[:user_id])
+    if(o.user_id != params[:user_id].to_i)
       render json: {status: false, reason: "Wrong user!", data: ""}
       return
     end
