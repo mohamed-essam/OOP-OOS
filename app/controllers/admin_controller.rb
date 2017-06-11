@@ -142,7 +142,7 @@ class AdminController < ApplicationController
     end
     ret = []
     Order.find_each do |order|
-      ret << {id: order.id, product_id: order.product_id, user_id: order.user_id, quantity: order.quantity, price_per_unit: order.price_per_unit}
+      ret << {id: order.id, product_id: order.product_id, product_name: Product.find(order.product_id).name, user_id: order.user_id, quantity: order.quantity, price_per_unit: order.price_per_unit, int_status: order.order_status}
     end
     render json: {data: ret.to_json, reason: '', status: true}
   end
