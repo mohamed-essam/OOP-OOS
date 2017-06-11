@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get '/debug/listUsers', to: 'debug#listUsers'
   get '/debug/listProducts', to: 'debug#listProducts'
   get '/debug/listAdmins', to: 'debug#listAdmins'
+  get '/debug/listReviews', to: 'debug#listReviews'
 
 #non_user routes
   post '/listCats', to: 'non_user#listCats'
