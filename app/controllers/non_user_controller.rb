@@ -67,7 +67,7 @@ class NonUserController < ApplicationController
     end
     ret = []
     r.find_each do |rev|
-      ret << {user_id: r.user_id, product_id: r.product_id, title: r.title, body: r.body}
+      ret << {user_id: rev.user_id, product_id: rev.product_id, title: rev.title, body: rev.body}
     end
     render json: {status: true, data: ret.to_json, reason: ""}
   end
