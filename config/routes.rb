@@ -41,6 +41,7 @@ Rails.application.routes.draw do
   post '/user/addReview', to: 'user#writeReview'
   post '/user/editOrder', to: 'user#editOrder'
   post '/user/deleteOrder', to: 'user#deleteOrder'
+  post '/user/removeReview', to: 'user#removeReview'
 
   get '*unmatched_route', to: 'application#not_found'
 end
