@@ -45,5 +45,6 @@ class DebugController < ApplicationController
     Review.find_each do |rev|
       ret << rev.as_json(only: [:id, :product_id, :user_id, :rating, :title, :body])
     end
+    render json: ret
   end
 end
