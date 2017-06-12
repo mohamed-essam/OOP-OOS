@@ -29,6 +29,7 @@ class NonUserController < ApplicationController
   end
 
   # Returns all reviews a product has
+  # params => product_id: id of product to get the reviews for
   def getProductReviews
     r = Product.find_by(id: params[:product_id]).reviews
     if(r == nil)

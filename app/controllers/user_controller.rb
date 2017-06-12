@@ -1,4 +1,6 @@
 class UserController < ApplicationController
+  # Signs up a user
+  # params => user_name, first_name, last_name, email, phone, password, password_confirmation
   def create()
     u = User.new(user_name: params[:user_name],first_name: params[:first_name], last_name: params[:last_name], email: params[:email], phone: params[:phone], password: params[:password], password_confirmation: params[:password_confirmation])
     status = u.save
@@ -6,6 +8,8 @@ class UserController < ApplicationController
     render json: {status: status, reason: errors.full_messages[0], data: ""}
   end
 
+  # Confirms a user's identity
+  # params => user_name, password
   def auth()
     u = User.find_by(user_name: params[:user_name])
     if(u == nil)
@@ -19,6 +23,9 @@ class UserController < ApplicationController
     render json: {status: false, reason: "Wrong password", data: "-1"}
   end
 
+  # Lists all orders made by a user
+  # params => user_id: ID of user requesting their orders
+  #           password
   def listOrders()
     if(!User.find(params[:user_id]).authenticate(params[:password]))
       render json: {status: false, reason: "Authentication failed!", data: ""}
@@ -32,6 +39,8 @@ class UserController < ApplicationController
     render json: {data: ret.to_json, status: true, reason: ''}
   end
 
+  # Creates an order for the user
+  # params => user_id, password, product_id, quantity
   def placeOrder()
     if(!User.find_by(id: params[:user_id]).authenticate(params[:password]))
       render json: {status: false, reason: "Authentication failed!", data: ""}
@@ -46,6 +55,8 @@ class UserController < ApplicationController
     render json: {status: status, reason: error, data: ""}
   end
 
+  # Edits an order quantity
+  # params => user_id, password, order_id, quantity
   def editOrder()
     if(!User.find_by(id: params[:user_id]).authenticate(params[:password]))
       render json: {status: false, reason: "Authentication failed!", data: ""}
@@ -68,6 +79,8 @@ class UserController < ApplicationController
     render json: {status: status, reason: error, data: ""}
   end
 
+  # Delete user order
+  # params => user_id, password, order_id
   def deleteOrder()
     if(!User.find_by(id: params[:user_id]).authenticate(params[:password]))
       render json: {status: false, reason: "Authentication failed!", data: ""}
@@ -94,6 +107,8 @@ class UserController < ApplicationController
     render json: {status: true, reason: error, data: ""}
   end
 
+  # Create review for user
+  # params => user_id, password, product_id, title, body, rating
   def writeReview()
     if(!User.find_by(id: params[:user_id]).authenticate(params[:password]))
       render json: {status: false, reason: "Authentication failed!", data: ""}
@@ -108,6 +123,8 @@ class UserController < ApplicationController
     render json: {status: status, reason: error, data: ""}
   end
 
+  # Remove user review
+  # params => user_id, password, id
   def removeReview()
     if(!User.find_by(id: params[:user_id]).authenticate(params[:password]))
       render json: {status: false, reason: "Authentication failed!", data: ""}
