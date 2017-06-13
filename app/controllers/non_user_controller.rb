@@ -40,7 +40,7 @@ class NonUserController < ApplicationController
     r.find_each do |rev|
       ret << {user_id: rev.user_id, product_id: rev.product_id, title: rev.title, body: rev.body, rating: rev.rating}
     end
-    render json: {data: ret.to_json, status: false, reason: ""}
+    render json: {data: ret.to_json, status: true, reason: ""}
   end
 
   # Returns all user public data given the id
